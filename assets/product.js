@@ -19,25 +19,25 @@ if (!customElements.get('variant-selects')) {
     }
 
     // CUSTOM FUNCTIONS START //
-    renderColors() {
+    renderVariantImages() {
       const colorInputs = this.querySelectorAll('input[type="radio"][name^="Color"]');
       colorInputs.forEach((input) => {
         const label = input.nextElementSibling;
         const color = input.value;
-        if (color === 'Desert Daze') {
+        if (color === 'Desert Daze' || color === 'Desert Dazes') {
           label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/cactus.png?v=1689690269")';
           label.style.backgroundSize = 'cover';
-        } else if (color === 'Moody Mushies') {
+        } else if (color === 'Moody Mushie' || color === 'Moody Mushies') {
           label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/mushrooms.png?v=1689690274")';
           label.style.backgroundSize = 'cover';
-        } else if (color === 'Disco Daisies') {
+        } else if (color === 'Disco Daisie' || color === 'Disco Daisies') {
           label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/daisies-flowers.png?v=1689690267")';
           label.style.backgroundSize = 'cover';
-        } else if (color === 'Sunny Snakes') {
-          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/sun.png?v=1689690279")';
-          label.style.backgroundSize = 'cover';
-        } else if (color === 'Starry Sea') {
+        } else if (color === 'Sunny Snake' || color === 'Sunny Snakes') {
           label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/characters.png?v=1689690269")';
+          label.style.backgroundSize = 'cover';
+        } else if (color === 'Starry Sea' || color === 'Starry Seas') {
+          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/sun.png?v=1689690279")';
           label.style.backgroundSize = 'cover';
         }
       });
