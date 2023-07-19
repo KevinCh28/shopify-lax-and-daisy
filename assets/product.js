@@ -18,6 +18,50 @@ if (!customElements.get('variant-selects')) {
       this.setDisabled();
     }
 
+    redirectToVariant() {
+      const colorInputs = document.querySelectorAll('input[type="radio"][name^="Color"]');
+      let productType = '';
+
+      // Extract product type from the URL string
+      const urlParams = new URLSearchParams(window.location.search);
+      const productPath = urlParams.get('variant');
+      if (productPath) {
+        const productPathSegments = productPath.split('?')[0].split('/');
+        if (productPathSegments.length >= 2) {
+          productType = productPathSegments[1];
+        }
+      }
+
+      colorInputs.forEach((input) => {
+        input.addEventListener('click', function () {
+          const color = this.value;
+          // PICNIC BACKPACK
+          if (color === 'Desert Daze' && productType === 'picnic-backpack') {
+            window.location.href = 'https://www.laxanddaisy.com/products/picnic-backpack?variant=44903990886683';
+          } else if (color === 'Moody Mushie' && productType === 'picnic-backpack') {
+            window.location.href = 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-moody-mushies?variant=45716562805019s';
+          } else if (color === 'Disco Daisie' && productType === 'picnic-backpack') {
+            window.location.href = 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-disco-daisies?variant=45202440290587';
+          } else if (color === 'Sunny Snake' && productType === 'picnic-backpack') {
+            window.location.href = 'https://www.laxanddaisy.com/products/copy-of-the-perfect-picnic-companion-in-starry-seas-1?variant=45716971192603';
+          } else if (color === 'Starry Sea' && productType === 'picnic-backpack') {
+            window.location.href = 'https://www.laxanddaisy.com/products/copy-of-the-perfect-picnic-companion-in-starry-seas?variant=45716708360475';
+          // PICNIC BLANKET
+          } else if (color === 'Desert Daze' && productType === 'picnic-blanket') {
+            window.location.href = 'https://www.laxanddaisy.com/products/picnic-blanket?variant=45113693864219';
+          } else if (color === 'Moody Mushie' && productType === 'picnic-blanket') {
+            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-moody-mushies';
+          } else if (color === 'Disco Daisie' && productType === 'picnic-blanket') {
+            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-disco-daisies';
+          } else if (color === 'Sunny Snake' && productType === 'picnic-blanket') {
+            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-sunny-snakes';
+          } else if (color === 'Starry Sea' && productType === 'picnic-blanket') {
+            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-starry-seas';
+          }
+        });
+      });
+    }
+
     // CUSTOM FUNCTIONS START //
     renderVariantImages() {
       const colorInputs = this.querySelectorAll('input[type="radio"][name^="Color"]');
