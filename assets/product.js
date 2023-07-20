@@ -13,77 +13,68 @@ if (!customElements.get('variant-selects')) {
 
     connectedCallback() {
       this.updateOptions();
-      this.renderColors(); // CUSTOM // Call the new function to render colors
+      this.redirectToVariant();// Calls the custom function
       this.updateMasterId();
       this.setDisabled();
     }
 
+    // CUSTOM FUNCTIONS START //
+    // Handles redirect for backpack and blanket variations
     redirectToVariant() {
       const colorInputs = document.querySelectorAll('input[type="radio"][name^="Color"]');
       let productType = '';
+      const backpackUrl = {
+        "Desert Daze": 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-desert-daze?variant=44903990886683',
+        "Moody Mushies": 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-moody-mushies?variant=45716562805019',
+        "Disco Daisies": 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-disco-daisies?variant=45202440290587',
+        "Sunny Snakes": 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-sunny-snakes?variant=45716971192603',
+        "Starry Sea": 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-starry-seas?variant=45716708360475'
+      }
+      const blanketUrl = {
+        "Desert Daze": 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-desert-daze?variant=45113693864219',
+        "Moody Mushies": 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-moody-mushies?variant=45717504065819',
+        "Disco Daisies": 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-disco-daisies?variant=45717330297115',
+        "Sunny Snakes": 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-sunny-snakes?variant=45717627633947',
+        "Starry Sea": 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-starry-seas?variant=45717565538587'
+      }
 
       // Extract product type from the URL string
       const urlParams = new URLSearchParams(window.location.search);
-      const productPath = urlParams.get('variant');
-      if (productPath) {
-        const productPathSegments = productPath.split('?')[0].split('/');
-        if (productPathSegments.length >= 2) {
-          productType = productPathSegments[1];
-        }
+      const urlWithoutVariant = window.location.href.split('?')[0]; // Extract URL without query parameters
+
+      const productPathSegments = urlWithoutVariant.split('/');
+      if (productPathSegments.length >= 2) {
+        productType = productPathSegments[productPathSegments.length - 1]; // Get the last segment of the URL
       }
+
 
       colorInputs.forEach((input) => {
         input.addEventListener('click', function () {
-          const color = this.value;
+          let color = this.value;
           // PICNIC BACKPACK
-          if (color === 'Desert Daze' && productType === 'picnic-backpack') {
-            window.location.href = 'https://www.laxanddaisy.com/products/picnic-backpack?variant=44903990886683';
-          } else if (color === 'Moody Mushie' && productType === 'picnic-backpack') {
-            window.location.href = 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-moody-mushies?variant=45716562805019s';
-          } else if (color === 'Disco Daisie' && productType === 'picnic-backpack') {
-            window.location.href = 'https://www.laxanddaisy.com/products/the-perfect-picnic-companion-in-disco-daisies?variant=45202440290587';
-          } else if (color === 'Sunny Snake' && productType === 'picnic-backpack') {
-            window.location.href = 'https://www.laxanddaisy.com/products/copy-of-the-perfect-picnic-companion-in-starry-seas-1?variant=45716971192603';
-          } else if (color === 'Starry Sea' && productType === 'picnic-backpack') {
-            window.location.href = 'https://www.laxanddaisy.com/products/copy-of-the-perfect-picnic-companion-in-starry-seas?variant=45716708360475';
-          // PICNIC BLANKET
-          } else if (color === 'Desert Daze' && productType === 'picnic-blanket') {
-            window.location.href = 'https://www.laxanddaisy.com/products/picnic-blanket?variant=45113693864219';
-          } else if (color === 'Moody Mushie' && productType === 'picnic-blanket') {
-            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-moody-mushies';
-          } else if (color === 'Disco Daisie' && productType === 'picnic-blanket') {
-            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-disco-daisies';
-          } else if (color === 'Sunny Snake' && productType === 'picnic-blanket') {
-            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-sunny-snakes';
-          } else if (color === 'Starry Sea' && productType === 'picnic-blanket') {
-            window.location.href = 'https://www.laxanddaisy.com/products/the-anywhere-picnic-blanket-in-starry-seas';
+          if (color !== 'Desert Daze' && productType === 'the-perfect-picnic-companion-in-desert-daze') {
+            window.location.href = backpackUrl[color];
+          } else if (color !== 'Moody Mushies' && productType === 'the-perfect-picnic-companion-in-moody-mushies') {
+            window.location.href = backpackUrl[color];
+          } else if (color !== 'Disco Daisies' && productType === 'the-perfect-picnic-companion-in-disco-daisies') {
+            window.location.href = backpackUrl[color];
+          } else if (color !== 'Sunny Snakes' && productType === 'the-perfect-picnic-companion-in-sunny-snakes') {
+            window.location.href = backpackUrl[color];
+          } else if (color !== 'Starry Sea' && productType === 'the-perfect-picnic-companion-in-starry-seas') {
+            window.location.href = backpackUrl[color];
+            // PICNIC BLANKET
+          } else if (color !== 'Desert Daze' && productType === 'the-anywhere-picnic-blanket-in-desert-daze') {
+            window.location.href = blanketUrl[color];
+          } else if (color !== 'Moody Mushies' && productType === 'the-anywhere-picnic-blanket-in-moody-mushies') {
+            window.location.href = blanketUrl[color];
+          } else if (color !== 'Disco Daisies' && productType === 'the-anywhere-picnic-blanket-in-disco-daisies') {
+            window.location.href = blanketUrl[color];
+          } else if (color !== 'Sunny Snakes' && productType === 'the-anywhere-picnic-blanket-in-sunny-snakes') {
+            window.location.href = blanketUrl[color];
+          } else if (color !== 'Starry Sea' && productType === 'the-anywhere-picnic-blanket-in-starry-seas') {
+            window.location.href = blanketUrl[color];
           }
         });
-      });
-    }
-
-    // CUSTOM FUNCTIONS START //
-    renderVariantImages() {
-      const colorInputs = this.querySelectorAll('input[type="radio"][name^="Color"]');
-      colorInputs.forEach((input) => {
-        const label = input.nextElementSibling;
-        const color = input.value;
-        if (color === 'Desert Daze' || color === 'Desert Dazes') {
-          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/cactus.png?v=1689690269")';
-          label.style.backgroundSize = 'cover';
-        } else if (color === 'Moody Mushie' || color === 'Moody Mushies') {
-          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/mushrooms.png?v=1689690274")';
-          label.style.backgroundSize = 'cover';
-        } else if (color === 'Disco Daisie' || color === 'Disco Daisies') {
-          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/daisies-flowers.png?v=1689690267")';
-          label.style.backgroundSize = 'cover';
-        } else if (color === 'Sunny Snake' || color === 'Sunny Snakes') {
-          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/characters.png?v=1689690269")';
-          label.style.backgroundSize = 'cover';
-        } else if (color === 'Starry Sea' || color === 'Starry Seas') {
-          label.style.backgroundImage = 'url("https://cdn.shopify.com/s/files/1/0728/8789/4299/files/sun.png?v=1689690279")';
-          label.style.backgroundSize = 'cover';
-        }
       });
     }
     // CUSTOM FUNCTIONS END //
@@ -124,15 +115,6 @@ if (!customElements.get('variant-selects')) {
         }
       });
     }
-    updateOptionsImages() {
-      const fieldsets = Array.from(this.querySelectorAll('fieldset'));
-      fieldsets.forEach((item, i) => {
-        let label = item.querySelector('.form__label__value');
-        if (label) {
-          label.innerHTML = this.options[i];
-        }
-      });
-    }
     updateVariantText() {
       const fieldsets = Array.from(this.querySelectorAll('fieldset'));
       fieldsets.forEach((item, i) => {
@@ -169,7 +151,7 @@ if (!customElements.get('variant-selects')) {
         images = productSlider.querySelectorAll('.product-images__slide');
 
       if (flkty && hide_variants) {
-        [].forEach.call(images, function(el) {
+        [].forEach.call(images, function (el) {
           el.classList.remove('is-selected');
         });
         productSlider.querySelector(mediaId).classList.add('is-selected');
@@ -295,7 +277,7 @@ if (!customElements.get('variant-selects')) {
         const selected_options = this.currentVariant.options.map((value, index) => {
           return {
             value,
-            index: `option${index+1}`
+            index: `option${index + 1}`
           };
         });
         const available_options = this.createAvailableOptionsTree(variant_data, selected_options);
@@ -483,7 +465,7 @@ if (!customElements.get('product-slider')) {
           event.preventDefault();
         });
       }
-      this.flkty.on('settle', function(index) {
+      this.flkty.on('settle', function (index) {
         this.selectedIndex = index;
       });
       this.flkty.on('change', (index) => {
@@ -541,7 +523,7 @@ if (!customElements.get('product-slider')) {
       });
     }
     thumbnailClick(thumbnail, index) {
-      [].forEach.call(this.thumbnails, function(el) {
+      [].forEach.call(this.thumbnails, function (el) {
         el.classList.remove('is-initial-selected');
       });
       thumbnail.classList.add('is-initial-selected');
@@ -616,8 +598,8 @@ if (!customElements.get('product-slider')) {
       this.pswpOptions.index = parseInt(link.dataset.index, 10);
       if (typeof PhotoSwipe !== 'undefined') {
         let pswp = new PhotoSwipe(this.pswpElement, PhotoSwipeUI_Default, this.items, this.pswpOptions);
-        pswp.listen('firstUpdate', function() {
-          pswp.listen('parseVerticalMargin', function(item) {
+        pswp.listen('firstUpdate', function () {
+          pswp.listen('parseVerticalMargin', function (item) {
             item.vGap = {
               top: 50,
               bottom: 50
